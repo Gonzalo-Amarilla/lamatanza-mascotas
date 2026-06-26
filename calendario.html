@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Matanza Mascotas - Calendario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #24427d;
+    --naranja: #e08127;
+    --celeste: #13a1ba;
+    --gris-bg: #f4f6fa;
+    --gris-borde: #d1d5db;
+    --gris-texto: #5a6478;
+    --blanco: #ffffff;
+    --verde-ok: #2ea66b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gris-bg);
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  .header { background: var(--azul); padding: 16px 0; }
+  .header-content {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: var(--blanco); letter-spacing: 1.5px;
+    text-decoration: none;
+  }
+  .brand span { color: var(--naranja); }
+  .nav { display: flex; gap: 28px; }
+  .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
+  .nav a.activo { opacity: 1; font-weight: 600; }
+  .nav a:hover { opacity: 1; }
+
+  .main {
+    flex: 1; max-width: 1100px; width: 100%;
+    margin: 0 auto; padding: 32px;
+  }
+
+  .volver {
+    color: var(--gris-texto); font-size: 13px;
+    text-decoration: none; margin-bottom: 20px; display: inline-block;
+  }
+  .volver:hover { color: var(--azul); }
+
+  .titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px; color: var(--azul); letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .tabs {
+    display: flex; gap: 8px;
+    margin-bottom: 28px; border-bottom: 1px solid var(--gris-borde);
+  }
+  .tab {
+    padding: 10px 18px; border: none; background: transparent;
+    font-family: 'Poppins', sans-serif; font-size: 14px;
+    color: var(--gris-texto); cursor: pointer;
+    border-bottom: 3px solid transparent; margin-bottom: -1px;
+  }
+  .tab.activo { color: var(--azul); font-weight: 600; border-bottom-color: var(--naranja); }
+
+  .vacunas-lista { display: flex; flex-direction: column; gap: 14px; }
+
+  .vacuna-card {
+    background: var(--blanco); border: 1px solid var(--gris-borde);
+    border-radius: 8px; padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer; transition: border-color 0.2s;
+    text-decoration: none; color: inherit;
+  }
+  .vacuna-card:hover { border-color: var(--celeste); }
+
+  .vacuna-info-izq { display: flex; align-items: center; gap: 16px; }
+  .vacuna-icon {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--celeste);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blanco); font-size: 20px; flex-shrink: 0;
+  }
+  .vacuna-nombre {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; color: var(--azul); letter-spacing: 0.5px;
+    line-height: 1;
+  }
+  .vacuna-fecha { font-size: 13px; color: var(--gris-texto); margin-top: 4px; }
+
+  .estado-pill {
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+  }
+  .estado-pill.al-dia { background: #e6f5ee; color: var(--verde-ok); }
+  .estado-pill.proxima { background: #fff4e8; color: var(--naranja); }
+
+  .footer {
+    background: var(--azul); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 18px; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+    <nav class="nav">
+      <a href="home.html">Mis mascotas</a>
+      <a href="calendario.html" class="activo">Calendario</a>
+      <a href="home.html">Centros</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <a href="home.html" class="volver">← Mis mascotas</a>
+  <h1 class="titulo">CALENDARIO - ROCKY</h1>
+
+  <div class="tabs">
+    <button class="tab activo">Todas</button>
+    <button class="tab">Al día</button>
+    <button class="tab">Próximas</button>
+    <button class="tab">Vencidas</button>
+  </div>
+
+  <div class="vacunas-lista">
+    <div class="vacuna-card">
+      <div class="vacuna-info-izq">
+        <div class="vacuna-icon">💉</div>
+        <div>
+          <div class="vacuna-nombre">QUÍNTUPLE</div>
+          <div class="vacuna-fecha">Aplicada: 10/03/2026</div>
+        </div>
+      </div>
+      <span class="estado-pill al-dia">Al día</span>
+    </div>
+
+    <div class="vacuna-card">
+      <div class="vacuna-info-izq">
+        <div class="vacuna-icon">💉</div>
+        <div>
+          <div class="vacuna-nombre">ANTIRRÁBICA</div>
+          <div class="vacuna-fecha">Próxima dosis: 15/09/2026</div>
+        </div>
+      </div>
+      <span class="estado-pill proxima">Próxima</span>
+    </div>
+
+    <div class="vacuna-card">
+      <div class="vacuna-info-izq">
+        <div class="vacuna-icon">💉</div>
+        <div>
+          <div class="vacuna-nombre">DESPARASITACIÓN</div>
+          <div class="vacuna-fecha">Aplicada: 20/04/2026</div>
+        </div>
+      </div>
+      <span class="estado-pill al-dia">Al día</span>
+    </div>
+
+    <div class="vacuna-card">
+      <div class="vacuna-info-izq">
+        <div class="vacuna-icon">💉</div>
+        <div>
+          <div class="vacuna-nombre">SÉXTUPLE</div>
+          <div class="vacuna-fecha">Próxima dosis: 28/11/2026</div>
+        </div>
+      </div>
+      <span class="estado-pill proxima">Próxima</span>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  Municipio de La Matanza · 2026
+</footer>
+
+</body>
+</html>
