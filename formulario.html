@@ -158,6 +158,50 @@
     text-align: center; padding: 18px; font-size: 12px;
     margin-top: 48px;
   }
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      gap: 16px;
+      padding: 0 16px;
+    }
+
+    .nav {
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .volver-wrapper {
+      padding: 16px 16px 0;
+    }
+
+    .main {
+      padding: 16px 16px 48px;
+    }
+
+    .titulo {
+      font-size: 26px;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .radio-group {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .botones {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
 </style>
 </head>
 <body>
