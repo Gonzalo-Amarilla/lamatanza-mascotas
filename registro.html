@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Matanza Mascotas - Registro de Usuario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #24427d;
+    --naranja: #e08127;
+    --celeste: #13a1ba;
+    --gris-bg: #e5e5e5; /* Fondo gris similar a la imagen */
+    --gris-borde: #d1d5db;
+    --gris-texto: #5a6478;
+    --blanco: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gris-bg);
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header unificado con el estilo original */
+  .header { background: var(--blanco); padding: 16px 0; border-bottom: 2px solid var(--azul); }
+  .header-content {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+  }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: var(--azul); letter-spacing: 1.5px;
+    text-decoration: none;
+  }
+  .brand span { color: var(--naranja); }
+
+  /* Contenedor principal centrado imitando la imagen */
+  .main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: var(--blanco); /* Franja blanca central */
+    margin: 40px 0; /* Espacio para que se vea el gris arriba y abajo */
+  }
+
+  /* Tarjeta de registro */
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .titulo {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--gris-texto);
+    margin-bottom: 32px;
+  }
+
+  .form-group {
+    display: flex; flex-direction: column;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    font-size: 12px; color: var(--gris-texto);
+    margin-bottom: 6px; font-weight: 500;
+  }
+
+  .form-group input {
+    width: 100%; padding: 10px 12px;
+    border: 1px solid var(--gris-borde); border-radius: 4px;
+    font-family: 'Poppins', sans-serif; font-size: 14px;
+    background: var(--blanco); color: #1f2937;
+    transition: border-color 0.2s;
+  }
+
+  .form-group input:focus {
+    outline: none; border-color: var(--celeste);
+  }
+
+  /* Botón adaptado a tu estilo original */
+  .btn {
+    padding: 12px 24px; border-radius: 4px;
+    font-family: 'Poppins', sans-serif; font-size: 14px;
+    font-weight: 500; cursor: pointer; border: none;
+    text-decoration: none; display: inline-block; text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .btn-primary { background: var(--naranja); color: var(--blanco); }
+  .btn-primary:hover { background: #c66f1f; }
+
+  .link-footer {
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--gris-texto);
+  }
+
+  .link-footer a {
+    color: var(--gris-texto);
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .link-footer a:hover {
+    color: var(--azul);
+    text-decoration: underline;
+  }
+
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="#" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="login-card">
+    <h1 class="titulo">Registrarse</h1>
+
+    <form action="#" method="POST">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" placeholder="Ingresá tu nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="ejemplo@correo.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" placeholder="Creá una contraseña" required>
+      </div>
+
+      <div class="form-group">
+        <label>Repetir contraseña</label>
+        <input type="password" placeholder="Confirmá tu contraseña" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Crear cuenta</button>
+
+      <div class="link-footer">
+        ¿Ya tenés cuenta? <a href="inicio-de-sesion.html">Iniciar sesión</a>
+      </div>
+    </form>
+  </div>
+</main>
+
+</body>
+</html>
