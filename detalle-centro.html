@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Matanza Mascotas - Detalle del Centro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #24427d;
+    --naranja: #e08127;
+    --celeste: #13a1ba;
+    --gris-bg: #f4f6fa;
+    --gris-borde: #d1d5db;
+    --gris-texto: #5a6478;
+    --blanco: #ffffff;
+    --verde-ok: #2ea66b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gris-bg);
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  .header { background: var(--azul); padding: 16px 0; }
+  .header-content {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: var(--blanco); letter-spacing: 1.5px;
+    text-decoration: none;
+  }
+  .brand span { color: var(--naranja); }
+  .nav { display: flex; gap: 28px; }
+  .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
+  .nav a.activo { opacity: 1; font-weight: 600; }
+  .nav a:hover { opacity: 1; }
+
+  .main {
+    flex: 1; max-width: 1100px; width: 100%;
+    margin: 0 auto; padding: 32px;
+  }
+
+  .volver {
+    color: var(--gris-texto); font-size: 13px;
+    text-decoration: none; margin-bottom: 20px; display: inline-block;
+  }
+  .volver:hover { color: var(--azul); }
+
+  .contenido-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .info-centro {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    padding: 32px;
+  }
+
+  .centro-nombre {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px; color: var(--azul); letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .centro-estado-pill {
+    display: inline-block;
+    font-size: 12px; padding: 4px 12px; border-radius: 999px;
+    background: #e6f5ee; color: var(--verde-ok);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .info-bloque { margin-bottom: 20px; }
+  .info-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; color: var(--azul); letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--naranja);
+    display: inline-block;
+  }
+  .info-texto { font-size: 14px; color: #1f2937; line-height: 1.6; }
+  .info-texto.gris { color: var(--gris-texto); font-size: 13px; }
+
+  .horarios-lista { list-style: none; padding: 0; }
+  .horarios-lista li {
+    display: flex; justify-content: space-between;
+    padding: 8px 0; border-bottom: 1px solid var(--gris-borde);
+    font-size: 13px;
+  }
+  .horarios-lista li:last-child { border-bottom: none; }
+  .horarios-lista li.hoy { font-weight: 600; color: var(--azul); }
+  .horarios-lista span:first-child { color: var(--gris-texto); }
+
+  .servicios-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    background: #e8f4f7; color: var(--celeste);
+    padding: 6px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+  }
+
+  .acciones {
+    display: flex; gap: 10px;
+    margin-top: 24px;
+  }
+  .btn {
+    flex: 1;
+    padding: 11px 18px; border-radius: 6px;
+    font-family: 'Poppins', sans-serif; font-size: 13px;
+    font-weight: 500; cursor: pointer; border: none;
+    text-decoration: none; text-align: center;
+    display: inline-block;
+  }
+  .btn-primary { background: var(--naranja); color: var(--blanco); }
+  .btn-primary:hover { background: #c66f1f; }
+  .btn-secundario {
+    background: var(--blanco); color: var(--azul);
+    border: 1.5px solid var(--azul);
+  }
+  .btn-secundario:hover { background: var(--azul); color: var(--blanco); }
+
+  .mapa {
+    background: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 10px;
+    min-height: 500px;
+    position: relative;
+    background-image:
+      linear-gradient(rgba(36, 66, 125, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(36, 66, 125, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+    overflow: hidden;
+  }
+  .punto-mapa-grande {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px; height: 32px;
+    background: var(--naranja);
+    border-radius: 50%;
+    border: 4px solid var(--blanco);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .punto-mapa-grande::after {
+    content: '';
+    position: absolute;
+    top: -10px; left: -10px; right: -10px; bottom: -10px;
+    border: 2px solid var(--naranja);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.5; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  .footer {
+    background: var(--azul); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 18px; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+    <nav class="nav">
+      <a href="home.html">Mis mascotas</a>
+      <a href="calendario.html">Calendario</a>
+      <a href="buscar-centro.html" class="activo">Centros</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <a href="buscar-centro.html" class="volver">← Buscar centro</a>
+
+  <div class="contenido-grid">
+    <div class="info-centro">
+      <h1 class="centro-nombre">ZOONOSIS RAMOS MEJÍA</h1>
+      <span class="centro-estado-pill">Abierto ahora</span>
+
+      <div class="info-bloque">
+        <h3 class="info-titulo">DIRECCIÓN</h3>
+        <p class="info-texto">Av. Rivadavia 1234, Ramos Mejía</p>
+        <p class="info-texto gris">A 0.4 km de tu ubicación</p>
+      </div>
+
+      <div class="info-bloque">
+        <h3 class="info-titulo">HORARIOS</h3>
+        <ul class="horarios-lista">
+          <li class="hoy"><span>Hoy (Viernes)</span><span>8:00 - 16:00</span></li>
+          <li><span>Lunes a Jueves</span><span>8:00 - 16:00</span></li>
+          <li><span>Sábados</span><span>9:00 - 13:00</span></li>
+          <li><span>Domingos</span><span>Cerrado</span></li>
+        </ul>
+      </div>
+
+      <div class="info-bloque">
+        <h3 class="info-titulo">SERVICIOS</h3>
+        <div class="servicios-tags">
+          <span class="tag">Vacunación gratuita</span>
+          <span class="tag">Castración</span>
+          <span class="tag">Desparasitación</span>
+          <span class="tag">Atención clínica</span>
+        </div>
+      </div>
+
+      <div class="info-bloque">
+        <h3 class="info-titulo">CONTACTO</h3>
+        <p class="info-texto">Tel: (011) 4658-1234</p>
+        <p class="info-texto">zoonosis.ramosmejia@lamatanza.gob.ar</p>
+      </div>
+
+      <div class="acciones">
+        <a href="#" class="btn btn-primary">Cómo llegar</a>
+        <a href="buscar-centro.html" class="btn btn-secundario">Volver al listado</a>
+      </div>
+    </div>
+
+    <div class="mapa">
+      <div class="punto-mapa-grande"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  Municipio de La Matanza · 2026
+</footer>
+
+</body>
+</html>

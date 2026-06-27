@@ -142,58 +142,6 @@
     background: var(--azul); color: rgba(255,255,255,0.7);
     text-align: center; padding: 18px; font-size: 12px;
   }
-  @media (max-width: 768px) {
-    .header-content {
-      flex-direction: column;
-      gap: 16px;
-      padding: 0 16px;
-    }
-
-    .nav {
-      gap: 16px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .main {
-      padding: 24px 16px;
-    }
-
-    .titulo {
-      font-size: 28px;
-    }
-
-    .alerta-banner {
-      flex-wrap: wrap;
-    }
-
-    .btn-alerta {
-      width: 100%;
-      text-align: center;
-      margin-top: 8px;
-    }
-
-    .tabs {
-      overflow-x: auto;
-      white-space: nowrap;
-      padding-bottom: 4px;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .tab {
-      padding: 10px 12px;
-    }
-
-    .vacuna-card {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-    }
-
-    .estado-pill {
-      align-self: flex-start;
-    }
-  }
 </style>
 </head>
 <body>
@@ -204,7 +152,7 @@
     <nav class="nav">
       <a href="home.html">Mis mascotas</a>
       <a href="calendario.html" class="activo">Calendario</a>
-      <a href="home.html">Centros</a>
+      <a href="buscar-centro.html">Centros</a>
     </nav>
   </div>
 </header>
@@ -219,7 +167,7 @@
       <div class="alerta-titulo">VACUNA PENDIENTE</div>
       <div class="alerta-detalle"><strong>Antirrábica</strong> vence en 7 días</div>
     </div>
-    <a href="home.html" class="btn-alerta">Buscar centro cercano</a>
+    <a href="buscar-centro.html" class="btn-alerta">Buscar centro cercano</a>
   </div>
 
   <div class="tabs">
@@ -230,7 +178,7 @@
   </div>
 
   <div class="vacunas-lista">
-    <div class="vacuna-card destacada">
+    <a href="detalle-vacuna.html" class="vacuna-card destacada">
       <div class="vacuna-info-izq">
         <div class="vacuna-icon">💉</div>
         <div>
@@ -239,9 +187,9 @@
         </div>
       </div>
       <span class="estado-pill proxima">Próxima</span>
-    </div>
+    </a>
 
-    <div class="vacuna-card">
+    <a href="detalle-vacuna.html" class="vacuna-card">
       <div class="vacuna-info-izq">
         <div class="vacuna-icon">💉</div>
         <div>
@@ -250,9 +198,9 @@
         </div>
       </div>
       <span class="estado-pill al-dia">Al día</span>
-    </div>
+    </a>
 
-    <div class="vacuna-card">
+    <a href="detalle-vacuna.html" class="vacuna-card">
       <div class="vacuna-info-izq">
         <div class="vacuna-icon">💉</div>
         <div>
@@ -261,7 +209,7 @@
         </div>
       </div>
       <span class="estado-pill al-dia">Al día</span>
-    </div>
+    </a>
   </div>
 </main>
 

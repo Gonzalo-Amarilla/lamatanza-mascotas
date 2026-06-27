@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Matanza Mascotas - Detalle de Vacuna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #24427d;
+    --naranja: #e08127;
+    --celeste: #13a1ba;
+    --gris-bg: #f4f6fa;
+    --gris-borde: #d1d5db;
+    --gris-texto: #5a6478;
+    --blanco: #ffffff;
+    --verde-ok: #2ea66b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gris-bg);
+    color: #1f2937;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+
+  .header { background: var(--azul); padding: 16px 0; }
+  .header-content {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px; color: var(--blanco); letter-spacing: 1.5px;
+    text-decoration: none;
+  }
+  .brand span { color: var(--naranja); }
+  .nav { display: flex; gap: 28px; }
+  .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
+  .nav a.activo { opacity: 1; font-weight: 600; }
+  .nav a:hover { opacity: 1; }
+
+  .main {
+    flex: 1; max-width: 1100px; width: 100%;
+    margin: 0 auto; padding: 32px;
+  }
+
+  .volver {
+    color: var(--gris-texto); font-size: 13px;
+    text-decoration: none; margin-bottom: 20px; display: inline-block;
+  }
+  .volver:hover { color: var(--azul); }
+
+  .titulo-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 28px;
+  }
+  .titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 34px; color: var(--azul); letter-spacing: 1px;
+  }
+  .btn-naranja {
+    background: var(--naranja); color: var(--blanco);
+    border: none; padding: 12px 22px; border-radius: 6px;
+    font-family: 'Poppins', sans-serif; font-size: 14px;
+    font-weight: 500; cursor: pointer;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-naranja:hover { background: #c66f1f; }
+
+  .detalle-card {
+    background: var(--blanco); border: 1px solid var(--gris-borde);
+    border-radius: 10px; padding: 32px;
+    max-width: 640px;
+  }
+
+  .detalle-row {
+    display: flex; justify-content: space-between;
+    padding: 14px 0; border-bottom: 1px solid var(--gris-borde);
+  }
+  .detalle-row:last-child { border-bottom: none; }
+
+  .detalle-label { color: var(--gris-texto); font-size: 14px; }
+  .detalle-valor { color: #1f2937; font-size: 14px; font-weight: 500; }
+
+  .estado-pill {
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 12px; font-weight: 500;
+    display: inline-block;
+  }
+  .estado-pill.proxima { background: #fff4e8; color: var(--naranja); }
+
+  .info-extra {
+    margin-top: 24px;
+    padding: 18px 22px;
+    background: #f0f9fb;
+    border-left: 4px solid var(--celeste);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--gris-texto);
+    line-height: 1.6;
+    max-width: 640px;
+  }
+  .info-extra strong { color: var(--azul); display: block; margin-bottom: 4px; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.5px; }
+
+  .footer {
+    background: var(--azul); color: rgba(255,255,255,0.7);
+    text-align: center; padding: 18px; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-content">
+    <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+    <nav class="nav">
+      <a href="home.html">Mis mascotas</a>
+      <a href="calendario.html" class="activo">Calendario</a>
+      <a href="buscar-centro.html">Centros</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <a href="alerta.html" class="volver">← Calendario</a>
+
+  <div class="titulo-row">
+    <h1 class="titulo">DETALLE - ANTIRRÁBICA</h1>
+    <a href="buscar-centro.html" class="btn-naranja">Buscar centro cercano</a>
+  </div>
+
+  <div class="detalle-card">
+    <div class="detalle-row">
+      <span class="detalle-label">Vacuna</span>
+      <span class="detalle-valor">Antirrábica</span>
+    </div>
+    <div class="detalle-row">
+      <span class="detalle-label">Mascota</span>
+      <span class="detalle-valor">Michi</span>
+    </div>
+    <div class="detalle-row">
+      <span class="detalle-label">Última dosis</span>
+      <span class="detalle-valor">02/07/2024</span>
+    </div>
+    <div class="detalle-row">
+      <span class="detalle-label">Próxima dosis</span>
+      <span class="detalle-valor">02/07/2026</span>
+    </div>
+    <div class="detalle-row">
+      <span class="detalle-label">Estado</span>
+      <span class="estado-pill proxima">Próxima</span>
+    </div>
+  </div>
+
+  <div class="info-extra">
+    <strong>SOBRE ESTA VACUNA</strong>
+    La antirrábica es obligatoria por la normativa municipal de tenencia responsable. Se aplica anualmente y previene la rabia, una enfermedad zoonótica grave. Las campañas de vacunación gratuita del Municipio incluyen esta dosis.
+  </div>
+</main>
+
+<footer class="footer">
+  Municipio de La Matanza · 2026
+</footer>
+
+</body>
+</html>
