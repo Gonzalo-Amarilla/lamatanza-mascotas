@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Matanza Mascotas - Registrar Mascota (Paso 1)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul: #24427d;
+            --naranja: #e08127;
+            --celeste: #13a1ba;
+            --gris-bg: #f4f6fa;
+            --gris-borde: #d1d5db;
+            --gris-texto: #5a6478;
+            --blanco: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--blanco);
+            color: #1f2937;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+        }
+
+        .header { background: var(--azul); padding: 16px 0; }
+        .header-content {
+            max-width: 1100px; margin: 0 auto; padding: 0 32px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px; color: var(--blanco); letter-spacing: 1.5px;
+            text-decoration: none;
+        }
+        .brand span { color: var(--naranja); }
+        .nav { display: flex; gap: 28px; }
+        .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
+        .nav a.activo { opacity: 1; font-weight: 600; }
+        .nav a:hover { opacity: 1; }
+
+        .volver-wrapper {
+            max-width: 1100px; margin: 0 auto; width: 100%;
+            padding: 24px 32px 0;
+        }
+        .volver { color: var(--gris-texto); font-size: 13px; text-decoration: none; }
+        .volver:hover { color: var(--azul); }
+
+        .main {
+            flex: 1; max-width: 720px; width: 100%;
+            margin: 0 auto; padding: 16px 32px 48px;
+        }
+
+        .titulo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px; color: var(--azul); letter-spacing: 1px;
+            text-align: center; margin-bottom: 6px;
+        }
+        .subtitulo {
+            text-align: center; color: var(--gris-texto);
+            font-size: 13px; margin-bottom: 36px;
+        }
+
+        .seccion { margin-bottom: 36px; }
+        .seccion-titulo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px; color: var(--azul); letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .seccion-descripcion { color: var(--gris-texto); font-size: 13px; margin-bottom: 20px; }
+
+        .foto-upload {
+            display: flex; align-items: center; gap: 14px;
+            margin-bottom: 24px; grid-column: 1 / -1;
+        }
+        .foto-circle {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--gris-bg); border: 1px solid var(--gris-borde);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--celeste); font-size: 24px; cursor: pointer;
+        }
+        .foto-label { font-size: 13px; color: var(--gris-texto); }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label {
+            font-size: 13px; color: var(--gris-texto);
+            margin-bottom: 6px; font-weight: 500;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%; padding: 9px 12px;
+            border: 1px solid var(--gris-borde); border-radius: 4px;
+            font-family: 'Poppins', sans-serif; font-size: 14px;
+            background: var(--blanco); color: #1f2937;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--celeste);
+        }
+        .form-group textarea { resize: vertical; min-height: 70px; }
+
+        .radio-group { display: flex; gap: 20px; padding-top: 4px; }
+        .radio-group label {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 13px; color: #1f2937; cursor: pointer;
+            font-weight: 400; margin-bottom: 0;
+        }
+
+        .botones {
+            display: flex; justify-content: center; gap: 12px; margin-top: 32px;
+        }
+        .btn {
+            padding: 11px 24px; border-radius: 4px;
+            font-family: 'Poppins', sans-serif; font-size: 13px;
+            font-weight: 500; cursor: pointer; border: none;
+            text-decoration: none; display: inline-block; text-align: center;
+        }
+        .btn-primary { background: var(--naranja); color: var(--blanco); }
+        .btn-primary:hover { background: #c66f1f; }
+        .btn-secundario {
+            background: var(--blanco); color: var(--azul);
+            border: 1.5px solid var(--azul);
+        }
+        .btn-secundario:hover { background: var(--azul); color: var(--blanco); }
+
+        .nota-final {
+            text-align: center; color: var(--gris-texto);
+            font-size: 12px; margin-top: 16px;
+        }
+
+        .footer {
+            background: var(--azul); color: rgba(255,255,255,0.7);
+            text-align: center; padding: 18px; font-size: 12px;
+            margin-top: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+                padding: 0 16px;
+            }
+
+            .nav {
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .volver-wrapper {
+                padding: 16px 16px 0;
+            }
+
+            .main {
+                padding: 16px 16px 48px;
+            }
+
+            .titulo {
+                font-size: 26px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .radio-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .botones {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-content">
+        <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+        <nav class="nav">
+            <a href="home.html" class="activo">Mis mascotas</a>
+            <a href="calendario.html">Calendario</a>
+            <a href="home.html">Centros</a>
+        </nav>
+    </div>
+</header>
+
+<div class="volver-wrapper">
+    <a href="home.html" class="volver">← Volver a mis mascotas</a>
+</div>
+
+<main class="main">
+    <h1 class="titulo">REGISTRAR MASCOTA (Paso 1)</h1>
+    <p class="subtitulo">Completá sus datos básicos para empezar.</p>
+
+    <form action="paso2.html" method="GET">
+        <div class="seccion">
+            <div class="form-grid">
+                <div class="foto-upload">
+                    <div class="foto-circle">📷</div>
+                    <div class="foto-label">Agregar foto (opcional)</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nombre</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Especie</label>
+                    <select required>
+                        <option value="" disabled selected>Elegir</option>
+                        <option>Perro</option>
+                        <option>Gato</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Raza</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Tamaño</label>
+                    <select required>
+                        <option value="" disabled selected>Elegir</option>
+                        <option>Pequeño</option>
+                        <option>Mediano</option>
+                        <option>Grande</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Sexo</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="sexo" value="hembra" required> Hembra</label>
+                        <label><input type="radio" name="sexo" value="macho" required> Macho</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Edad</label>
+                    <input type="text" placeholder="Ej: 3 años, 6 meses..." required>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="botones">
+            <button type="submit" class="btn btn-primary">Siguiente</button>
+            <a href="home.html" class="btn btn-secundario">Cancelar</a>
+        </div>
+    </form>
+
+    <p class="nota-final">Luego vas a poder completar el resto de su información y calendario de vacunación.</p>
+</main>
+
+<footer class="footer">
+    Municipio de La Matanza · 2026
+</footer>
+
+</body>
+</html>
