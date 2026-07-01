@@ -66,11 +66,12 @@
             font-size: 13px; margin-bottom: 20px;
         }
 
+        /* Indicador de pasos (Stepper) actualizado para 3 pasos */
         .indicador-pasos {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 36px;
         }
         .paso-item {
@@ -98,33 +99,35 @@
             color: var(--gris-texto);
             transition: all 0.3s ease;
         }
+        .paso-item.completado .paso-numero {
+            background: var(--gris-bg);
+            color: var(--azul);
+            border-color: var(--azul);
+        }
         .paso-item.activo .paso-numero {
             background: var(--azul);
             color: var(--blanco);
             border-color: var(--azul);
         }
         .paso-linea {
-            width: 50px;
+            width: 30px;
             height: 2px;
             background: var(--gris-borde);
         }
+        .paso-linea.completada {
+            background: var(--azul);
+        }
 
         .seccion { margin-bottom: 36px; }
-
-        .foto-upload {
-            display: flex; align-items: center; gap: 14px;
-            margin-bottom: 24px; grid-column: 1 / -1;
+        .seccion-titulo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 22px; color: var(--azul); letter-spacing: 0.5px;
+            margin-bottom: 6px;
         }
-        .foto-circle {
-            width: 64px; height: 64px; border-radius: 50%;
-            background: var(--gris-bg); border: 1px solid var(--gris-borde);
-            display: flex; align-items: center; justify-content: center;
-            color: var(--celeste); font-size: 24px; cursor: pointer;
-        }
-        .foto-label { font-size: 13px; color: var(--gris-texto); }
 
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
         .form-group { display: flex; flex-direction: column; }
+        .form-group.full { grid-column: 1 / -1; }
         .form-group label {
             font-size: 13px; color: var(--gris-texto);
             margin-bottom: 6px; font-weight: 500;
@@ -145,6 +148,64 @@
             display: flex; align-items: center; gap: 6px;
             font-size: 13px; color: #1f2937; cursor: pointer;
             font-weight: 400; margin-bottom: 0;
+        }
+
+        /* Checklist container */
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 8px;
+            background: var(--gris-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--gris-borde);
+        }
+        .checklist-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .check-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+            cursor: pointer;
+        }
+        .check-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+        .checklist-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-left: 24px;
+            font-size: 13px;
+            color: var(--gris-texto);
+        }
+        .checklist-input-group span {
+            white-space: nowrap;
+        }
+        .checklist-input-group input[type="text"] {
+            flex: 1;
+            padding: 7px 12px;
+            border: 1px solid var(--gris-borde);
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 13px;
+            background: var(--blanco);
+            transition: all 0.2s ease;
+        }
+        .checklist-input-group input[type="text"]:disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            border-color: #d1d5db;
         }
 
         .botones {
@@ -202,80 +263,99 @@
 </header>
 
 <div class="volver-wrapper">
-    <a href="home.html" class="volver">← Volver a mis mascotas</a>
+    <a href="formulario-paso-1.html" class="volver">← Volver al paso anterior</a>
 </div>
 
 <main class="main">
     <h1 class="titulo">REGISTRAR MASCOTA</h1>
-    <p class="subtitulo">Completá sus datos básicos para empezar.</p>
+    <p class="subtitulo">Información adicional de salud.</p>
 
+    <!-- STEPPER CON JS (Paso 2 activo de 3) -->
     <div class="indicador-pasos" id="stepper">
-        <div class="paso-item activo" data-step="1">
-            <div class="paso-numero">1</div>
-            <span>Datos básicos</span>
+        <div class="paso-item completado" data-step="1">
+            <div class="paso-numero">✓</div>
+            <span style="display:none;">Datos básicos</span>
+        </div>
+        <div class="paso-linea completada"></div>
+        <div class="paso-item activo" data-step="2">
+            <div class="paso-numero">2</div>
+            <span>Salud</span>
         </div>
         <div class="paso-linea"></div>
-        <div class="paso-item" data-step="2">
-            <div class="paso-numero">2</div>
-            <span>Salud y Vacunas</span>
+        <div class="paso-item" data-step="3">
+            <div class="paso-numero">3</div>
+            <span style="display:none;">Vacunas</span>
         </div>
     </div>
 
-    <div class="seccion">
-        <div class="form-grid">
-            <div class="foto-upload">
-                <div class="foto-circle">📷</div>
-                <div class="foto-label">Agregar foto (opcional)</div>
-            </div>
+    <div>
+        <!-- SECCIÓN INFORMACIÓN ADICIONAL -->
+        <div class="seccion">
+            <h2 class="seccion-titulo">INFORMACIÓN ADICIONAL</h2>
 
-            <div class="form-group">
-                <label>Nombre</label>
-                <input type="text">
-            </div>
-            <div class="form-group">
-                <label>Especie</label>
-                <select>
-                    <option value="" disabled selected>Elegir</option>
-                    <option>Perro</option>
-                    <option>Gato</option>
-                </select>
-            </div>
+            <div class="form-grid">
+                <div class="form-group full">
+                    <label>¿Está castrado/a?</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="castrado"> Sí</label>
+                        <label><input type="radio" name="castrado"> No</label>
+                        <label><input type="radio" name="castrado"> No sé</label>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label>Raza</label>
-                <input type="text">
-            </div>
-            <div class="form-group">
-                <label>Tamaño</label>
-                <select>
-                    <option value="" disabled selected>Elegir</option>
-                    <option>Pequeño</option>
-                    <option>Mediano</option>
-                    <option>Grande</option>
-                </select>
-            </div>
+                <div class="form-group full">
+                    <label>Observaciones importantes (alergias, enfermedades, medicación, etc.)</label>
 
-            <div class="form-group">
-                <label>Sexo</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="sexo" value="hembra"> Hembra</label>
-                    <label><input type="radio" name="sexo" value="macho"> Macho</label>
+                    <div class="checklist-container">
+                        <div class="checklist-item">
+                            <label class="check-label">
+                                <input type="checkbox" id="check-alergias" onchange="toggleInput('check-alergias', 'input-alergias')"> Tiene alergias conocidas
+                            </label>
+                            <div class="checklist-input-group">
+                                <span>¿Cuáles?</span>
+                                <input type="text" id="input-alergias" disabled placeholder="Completar detalles...">
+                            </div>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-label">
+                                <input type="checkbox" id="check-cronica" onchange="toggleInput('check-cronica', 'input-cronica')"> Tiene una enfermedad crónica
+                            </label>
+                            <div class="checklist-input-group">
+                                <span>¿Cuál?</span>
+                                <input type="text" id="input-cronica" disabled placeholder="Completar detalles...">
+                            </div>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-label">
+                                <input type="checkbox" id="check-medicacion" onchange="toggleInput('check-medicacion', 'input-medicacion')"> Está bajo medicación permanente
+                            </label>
+                            <div class="checklist-input-group">
+                                <span>¿Cuál?</span>
+                                <input type="text" id="input-medicacion" disabled placeholder="Completar detalles...">
+                            </div>
+                        </div>
+
+                        <div class="checklist-item">
+                            <label class="check-label">
+                                <input type="checkbox" id="check-cirugia" onchange="toggleInput('check-cirugia', 'input-cirugia')"> Fue sometido/a a una cirugía importante
+                            </label>
+                            <div class="checklist-input-group">
+                                <span>¿Cuál?</span>
+                                <input type="text" id="input-cirugia" disabled placeholder="Completar detalles...">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label>Edad</label>
-                <input type="text" placeholder="Ej: 3 años, 6 meses...">
-            </div>
+        <div class="botones">
+            <a href="formulario-paso-1.html" class="btn btn-secundario">Atrás</a>
+            <a href="formulario-paso-3.html" class="btn btn-primary">Siguiente</a>
         </div>
     </div>
-
-    <div class="botones">
-        <a href="formulario-paso-2.html" class="btn btn-primary">Siguiente</a>
-        <a href="home.html" class="btn btn-secundario">Cancelar</a>
-    </div>
-
-    <p class="nota-final">Luego vas a poder completar el resto de su información y calendario de vacunación.</p>
 </main>
 
 <footer class="footer">
@@ -283,10 +363,23 @@
 </footer>
 
 <script>
+    function toggleInput(checkboxId, inputId) {
+        const checkbox = document.getElementById(checkboxId);
+        const input = document.getElementById(inputId);
+        if (checkbox && input) {
+            input.disabled = !checkbox.checked;
+            if (checkbox.checked) {
+                input.focus();
+            } else {
+                input.value = '';
+            }
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
         const pasoActivo = document.querySelector('.paso-item.activo');
         if (pasoActivo) {
-            console.log("Paso Activo: " + pasoActivo.getAttribute('data-step') + " / 2");
+            console.log("Paso Activo: " + pasoActivo.getAttribute('data-step') + " / 3");
         }
     });
 </script>
