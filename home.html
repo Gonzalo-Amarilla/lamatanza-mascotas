@@ -29,10 +29,11 @@
     flex-direction: column;
   }
 
-  .header { background: var(--azul); padding: 16px 0; }
+  .header { background: var(--azul); padding: 16px 0; position: relative; }
   .header-content {
     max-width: 1100px; margin: 0 auto; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
+    position: relative;
   }
   .brand {
     font-family: 'Bebas Neue', sans-serif;
@@ -53,6 +54,7 @@
   .section-header {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 32px;
+    gap: 16px;
   }
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
@@ -63,6 +65,7 @@
     border: none; padding: 12px 22px; border-radius: 6px;
     font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 500;
     cursor: pointer; text-decoration: none; display: inline-block;
+    white-space: nowrap;
   }
   .btn-agregar:hover { background: #c66f1f; }
 
@@ -75,6 +78,7 @@
     display: flex; gap: 16px; align-items: center;
     cursor: pointer; transition: border-color 0.2s, transform 0.2s;
     text-decoration: none; color: inherit;
+    min-width: 0;
   }
   .card:hover { border-color: var(--celeste); transform: translateY(-2px); }
   .card.pendiente { border-left: 4px solid var(--naranja); }
@@ -91,6 +95,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 20px; color: var(--azul); letter-spacing: 0.5px;
     line-height: 1.1; margin-bottom: 4px;
+    overflow-wrap: anywhere;
   }
   .mascota-estado { font-size: 13px; color: var(--gris-texto); }
   .mascota-estado.alerta { color: var(--naranja); font-weight: 500; }
@@ -99,6 +104,79 @@
     background: var(--azul); color: rgba(255,255,255,0.7);
     text-align: center; padding: 18px; font-size: 12px;
   }
+
+  .btn-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 20;
+  }
+  .btn-menu span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--blanco);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .btn-menu.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .btn-menu.abierto span:nth-child(2) { opacity: 0; }
+  .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 900px) {
+    .mascotas-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .header-content { padding: 0 20px; }
+    .main { padding: 32px 20px; }
+
+    .btn-menu { display: block; }
+
+    .nav {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--azul);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav.abierto { max-height: 260px; }
+    .nav a {
+      padding: 14px 20px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 1;
+    }
+
+    .section-header {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+    }
+    .section-title { font-size: 28px; }
+    .btn-agregar {
+      text-align: center;
+      width: 100%;
+      padding: 13px 22px;
+    }
+
+    .mascotas-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Mobile chico */
+  @media (max-width: 380px) {
+    .card { padding: 16px; gap: 12px; }
+    .mascota-foto { width: 48px; height: 48px; font-size: 20px; }
+    .mascota-nombre { font-size: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -106,11 +184,16 @@
 <header class="header">
   <div class="header-content">
     <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
-    <nav class="nav">
+    <nav class="nav" id="nav-principal">
       <a href="home.html" class="activo">Mis mascotas</a>
       <a href="calendario.html">Calendario</a>
       <a href="buscar-centro.html">Centros</a>
     </nav>
+    <button class="btn-menu" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-principal">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -150,6 +233,34 @@
 <footer class="footer">
   Municipio de La Matanza · 2026
 </footer>
+
+<script>
+  const btnMenu = document.getElementById('btn-menu');
+  const nav = document.getElementById('nav-principal');
+
+  btnMenu.addEventListener('click', () => {
+    const abierto = nav.classList.toggle('abierto');
+    btnMenu.classList.toggle('abierto', abierto);
+    btnMenu.setAttribute('aria-expanded', abierto);
+  });
+
+
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('abierto');
+      btnMenu.classList.remove('abierto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !btnMenu.contains(e.target)) {
+      nav.classList.remove('abierto');
+      btnMenu.classList.remove('abierto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
 
 </body>
 </html>

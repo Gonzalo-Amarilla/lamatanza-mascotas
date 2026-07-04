@@ -28,11 +28,12 @@
             display: flex; flex-direction: column;
         }
 
-        .header { background: var(--azul); padding: 16px 0; }
-        .header-content {
-            max-width: 1100px; margin: 0 auto; padding: 0 32px;
-            display: flex; align-items: center; justify-content: space-between;
-        }
+  .header { background: var(--azul); padding: 16px 0; position: relative; }
+  .header-content {
+    max-width: 1100px; margin: 0 auto; padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative;
+  }
         .brand {
             font-family: 'Bebas Neue', sans-serif;
             font-size: 24px; color: var(--blanco); letter-spacing: 1.5px;
@@ -66,7 +67,6 @@
             font-size: 13px; margin-bottom: 20px;
         }
 
-        /* Indicador de pasos (Stepper) actualizado para 3 pasos */
         .indicador-pasos {
             display: flex;
             align-items: center;
@@ -143,7 +143,7 @@
             outline: none; border-color: var(--celeste);
         }
 
-        .radio-group { display: flex; gap: 20px; padding-top: 4px; }
+        .radio-group { display: flex; gap: 20px; padding-top: 4px; flex-wrap: wrap; }
         .radio-group label {
             display: flex; align-items: center; gap: 6px;
             font-size: 13px; color: #1f2937; cursor: pointer;
@@ -167,6 +167,19 @@
         }
         .btn-agregar-vacuna:hover { border-color: var(--celeste); color: var(--celeste); }
 
+        #form-vacunas {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            transition: max-height 0.35s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        }
+        #form-vacunas.visible {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 18px;
+        }
+
         .botones {
             display: flex; justify-content: center; gap: 12px; margin-top: 32px;
         }
@@ -188,37 +201,86 @@
             text-align: center; color: var(--gris-texto);
             font-size: 12px; margin-top: 16px;
         }
-
+        
         .footer {
             background: var(--azul); color: rgba(255,255,255,0.7);
             text-align: center; padding: 18px; font-size: 12px;
             margin-top: 48px;
         }
+        
+        .btn-menu {
+        display: none;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px;
+        z-index: 20;
+      }
+      .btn-menu span {
+        display: block;
+        width: 24px; height: 2px;
+        background: var(--blanco);
+        margin: 5px 0;
+        border-radius: 2px;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+      .btn-menu.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .btn-menu.abierto span:nth-child(2) { opacity: 0; }
+      .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+        /* Ajustes de layout de formulario (independientes del menú) */
         @media (max-width: 768px) {
-            .header-content { flex-direction: column; gap: 16px; padding: 0 16px; }
-            .nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
-            .volver-wrapper { padding: 16px 16px 0; }
-            .main { padding: 16px 16px 48px; }
+            .volver-wrapper { padding: 16px 20px 0; }
+            .main { padding: 16px 20px 48px; }
             .titulo { font-size: 26px; }
             .form-grid { grid-template-columns: 1fr; }
-            .radio-group { flex-direction: column; align-items: flex-start; gap: 12px; }
             .botones { flex-direction: column; gap: 16px; }
             .btn { width: 100%; }
+        }
+
+        @media (max-width: 700px) {
+            .header-content { padding: 0 20px; }
+            .btn-menu { display: block; }
+
+            .nav {
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: var(--azul);
+            flex-direction: column;
+            gap: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            }
+            .nav.abierto { max-height: 260px; }
+            .nav a {
+            padding: 14px 20px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+            opacity: 1;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .fecha-group input.year { width: 68px; }
         }
     </style>
 </head>
 <body>
 
 <header class="header">
-    <div class="header-content">
-        <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
-        <nav class="nav">
-            <a href="home.html" class="activo">Mis mascotas</a>
-            <a href="calendario.html">Calendario</a>
-            <a href="buscar-centro.html">Centros</a>
-        </nav>
-    </div>
+  <div class="header-content">
+    <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
+    <nav class="nav" id="nav-principal">
+      <a href="home.html" class="activo">Mis mascotas</a>
+      <a href="calendario.html">Calendario</a>
+      <a href="buscar-centro.html">Centros</a>
+    </nav>
+    <button class="btn-menu" id="btn-menu" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav-principal">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </header>
 
 <div class="volver-wrapper">
@@ -256,11 +318,13 @@
                 <div class="form-group full">
                     <label>¿Tu mascota ya tiene vacunas registradas?</label>
                     <div class="radio-group">
-                        <label><input type="radio" name="tiene-vacunas"> Sí, quiero cargarlas ahora</label>
-                        <label><input type="radio" name="tiene-vacunas"> No / No estoy seguro</label>
+                        <label><input type="radio" name="tiene-vacunas" id="radio-si" value="si"> Sí, quiero cargarlas ahora</label>
+                        <label><input type="radio" name="tiene-vacunas" id="radio-no" value="no"> No / No estoy seguro</label>
                     </div>
                 </div>
+            </div>
 
+            <div id="form-vacunas" class="form-grid">
                 <div class="form-group">
                     <label>Vacuna aplicada</label>
                     <select>
@@ -302,6 +366,46 @@
         const pasoActivo = document.querySelector('.paso-item.activo');
         if (pasoActivo) {
             console.log("Paso Activo: " + pasoActivo.getAttribute('data-step') + " / 3");
+        }
+
+        const radioSi = document.getElementById('radio-si');
+        const radioNo = document.getElementById('radio-no');
+        const formVacunas = document.getElementById('form-vacunas');
+
+        function actualizarFormVacunas() {
+            if (radioSi.checked) {
+                formVacunas.classList.add('visible');
+            } else {
+                formVacunas.classList.remove('visible');
+            }
+        }
+
+        radioSi.addEventListener('change', actualizarFormVacunas);
+        radioNo.addEventListener('change', actualizarFormVacunas);
+    });
+
+    const btnMenu = document.getElementById('btn-menu');
+    const nav = document.getElementById('nav-principal');
+
+    btnMenu.addEventListener('click', () => {
+        const abierto = nav.classList.toggle('abierto');
+        btnMenu.classList.toggle('abierto', abierto);
+        btnMenu.setAttribute('aria-expanded', abierto);
+    });
+
+    nav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            nav.classList.remove('abierto');
+            btnMenu.classList.remove('abierto');
+            btnMenu.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!nav.contains(e.target) && !btnMenu.contains(e.target)) {
+            nav.classList.remove('abierto');
+            btnMenu.classList.remove('abierto');
+            btnMenu.setAttribute('aria-expanded', 'false');
         }
     });
 </script>

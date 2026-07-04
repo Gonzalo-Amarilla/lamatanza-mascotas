@@ -18,9 +18,9 @@
     --blanco: #ffffff;
     --verde-ok: #2ea66b;
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   body {
     font-family: 'Poppins', sans-serif;
     background: var(--gris-bg);
@@ -28,11 +28,11 @@
     min-height: 100vh;
     display: flex; flex-direction: column;
   }
-
-  .header { background: var(--azul); padding: 16px 0; }
+ .header { background: var(--azul); padding: 16px 0; position: relative; }
   .header-content {
     max-width: 1100px; margin: 0 auto; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
+    position: relative;
   }
   .brand {
     font-family: 'Bebas Neue', sans-serif;
@@ -44,18 +44,18 @@
   .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
   .nav a.activo { opacity: 1; font-weight: 600; }
   .nav a:hover { opacity: 1; }
-
+ 
   .main {
     flex: 1; max-width: 1100px; width: 100%;
     margin: 0 auto; padding: 32px;
   }
-
+ 
   .volver {
     color: var(--gris-texto); font-size: 13px;
     text-decoration: none; margin-bottom: 20px; display: inline-block;
   }
   .volver:hover { color: var(--azul); }
-
+ 
   .titulo-row {
     display: flex; justify-content: space-between; align-items: center;
     margin-bottom: 28px;
@@ -72,31 +72,64 @@
     text-decoration: none; display: inline-block;
   }
   .btn-naranja:hover { background: #c66f1f; }
-
+ 
+  .contenido-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+ 
   .detalle-card {
     background: var(--blanco); border: 1px solid var(--gris-borde);
     border-radius: 10px; padding: 32px;
+    flex: 1 1 400px;
     max-width: 640px;
   }
 
+  .dosis-destacada {
+    text-align: center;
+    padding: 4px 0 24px;
+    border-bottom: 1px solid var(--gris-borde);
+    margin-bottom: 8px;
+  }
+  .dosis-destacada .dosis-label {
+    font-size: 12.5px; color: var(--gris-texto);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+  .dosis-destacada .dosis-fecha {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px; color: var(--naranja);
+    letter-spacing: 1px; line-height: 1;
+  }
+  .dosis-destacada .estado-pill {
+    margin-top: 12px;
+  }
+  .dosis-destacada .dosis-ultima {
+    margin-top: 14px;
+    font-size: 12.5px; color: #8a93a6;
+  }
+  .dosis-destacada .dosis-ultima b { color: var(--gris-texto); font-weight: 500; }
+ 
   .detalle-row {
     display: flex; justify-content: space-between;
     padding: 14px 0; border-bottom: 1px solid var(--gris-borde);
   }
   .detalle-row:last-child { border-bottom: none; }
-
+ 
   .detalle-label { color: var(--gris-texto); font-size: 14px; }
   .detalle-valor { color: #1f2937; font-size: 14px; font-weight: 500; }
-
+ 
   .estado-pill {
     padding: 6px 14px; border-radius: 999px;
     font-size: 12px; font-weight: 500;
     display: inline-block;
   }
   .estado-pill.proxima { background: #fff4e8; color: var(--naranja); }
-
+ 
   .info-extra {
-    margin-top: 24px;
     padding: 18px 22px;
     background: #f0f9fb;
     border-left: 4px solid var(--celeste);
@@ -104,13 +137,59 @@
     font-size: 13px;
     color: var(--gris-texto);
     line-height: 1.6;
-    max-width: 640px;
+    flex: 1 1 260px;
+    max-width: 320px;
   }
   .info-extra strong { color: var(--azul); display: block; margin-bottom: 4px; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.5px; }
-
+ 
+  @media (max-width: 780px) {
+    .info-extra { max-width: 640px; flex-basis: 100%; }
+  }
+ 
   .footer {
     background: var(--azul); color: rgba(255,255,255,0.7);
     text-align: center; padding: 18px; font-size: 12px;
+  }
+
+    .btn-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 20;
+  }
+  .btn-menu span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--blanco);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .btn-menu.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .btn-menu.abierto span:nth-child(2) { opacity: 0; }
+  .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 700px) {
+    .btn-menu { display: block; }
+
+    .nav {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--azul);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav.abierto { max-height: 260px; }
+    .nav a {
+      padding: 14px 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 1;
+    }
   }
 </style>
 </head>
@@ -119,11 +198,16 @@
 <header class="header">
   <div class="header-content">
     <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
-    <nav class="nav">
+    <nav class="nav" id="nav-principal">
       <a href="home.html">Mis mascotas</a>
       <a href="calendario.html" class="activo">Calendario</a>
       <a href="buscar-centro.html">Centros</a>
     </nav>
+    <button class="btn-menu" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -135,38 +219,50 @@
     <a href="buscar-centro.html" class="btn-naranja">Buscar centro cercano</a>
   </div>
 
-  <div class="detalle-card">
-    <div class="detalle-row">
-      <span class="detalle-label">Vacuna</span>
-      <span class="detalle-valor">Antirrábica</span>
-    </div>
-    <div class="detalle-row">
-      <span class="detalle-label">Mascota</span>
-      <span class="detalle-valor">Michi</span>
-    </div>
-    <div class="detalle-row">
-      <span class="detalle-label">Última dosis</span>
-      <span class="detalle-valor">02/07/2024</span>
-    </div>
-    <div class="detalle-row">
-      <span class="detalle-label">Próxima dosis</span>
-      <span class="detalle-valor">02/07/2026</span>
-    </div>
-    <div class="detalle-row">
-      <span class="detalle-label">Estado</span>
-      <span class="estado-pill proxima">Próxima</span>
-    </div>
-  </div>
+  <div class="contenido-wrap">
+    <div class="detalle-card">
+      <div class="dosis-destacada">
+        <div class="dosis-label">Próxima dosis</div>
+        <div class="dosis-fecha">02/07/2026</div>
+        <div class="dosis-ultima">Última dosis aplicada: <b>02/07/2024</b></div>
+      </div>
 
-  <div class="info-extra">
-    <strong>SOBRE ESTA VACUNA</strong>
-    La antirrábica es obligatoria por la normativa municipal de tenencia responsable. Se aplica anualmente y previene la rabia, una enfermedad zoonótica grave. Las campañas de vacunación gratuita del Municipio incluyen esta dosis.
+      <div class="detalle-row">
+        <span class="detalle-label">Vacuna</span>
+        <span class="detalle-valor">Antirrábica</span>
+      </div>
+      <div class="detalle-row">
+        <span class="detalle-label">Mascota</span>
+        <span class="detalle-valor">Michi</span>
+      </div>
+    </div>
+
+    <div class="info-extra">
+      <strong>SOBRE ESTA VACUNA</strong>
+      La antirrábica es obligatoria por la normativa municipal de tenencia responsable. Se aplica anualmente y previene la rabia, una enfermedad zoonótica grave. Las campañas de vacunación gratuita del Municipio incluyen esta dosis.
+    </div>
   </div>
 </main>
 
 <footer class="footer">
   Municipio de La Matanza · 2026
 </footer>
+<script>
+  const btnMenu = document.getElementById('btn-menu');
+  const navPrincipal = document.getElementById('nav-principal');
 
+  btnMenu.addEventListener('click', () => {
+    const abierto = navPrincipal.classList.toggle('abierto');
+    btnMenu.classList.toggle('abierto', abierto);
+    btnMenu.setAttribute('aria-expanded', abierto);
+  });
+  navPrincipal.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navPrincipal.classList.remove('abierto');
+      btnMenu.classList.remove('abierto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
 </body>
 </html>

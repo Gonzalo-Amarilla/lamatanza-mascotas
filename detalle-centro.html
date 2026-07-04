@@ -29,10 +29,11 @@
     display: flex; flex-direction: column;
   }
 
-  .header { background: var(--azul); padding: 16px 0; }
+ .header { background: var(--azul); padding: 16px 0; position: relative; }
   .header-content {
     max-width: 1100px; margin: 0 auto; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
+    position: relative;
   }
   .brand {
     font-family: 'Bebas Neue', sans-serif;
@@ -172,6 +173,47 @@
     background: var(--azul); color: rgba(255,255,255,0.7);
     text-align: center; padding: 18px; font-size: 12px;
   }
+
+    .btn-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 20;
+  }
+  .btn-menu span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--blanco);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .btn-menu.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .btn-menu.abierto span:nth-child(2) { opacity: 0; }
+  .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 700px) {
+    .btn-menu { display: block; }
+
+    .nav {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--azul);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav.abierto { max-height: 260px; }
+    .nav a {
+      padding: 14px 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 1;
+    }
+  }
 </style>
 </head>
 <body>
@@ -179,11 +221,16 @@
 <header class="header">
   <div class="header-content">
     <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
-    <nav class="nav">
+    <nav class="nav" id="nav-principal">
       <a href="home.html">Mis mascotas</a>
       <a href="calendario.html">Calendario</a>
       <a href="buscar-centro.html" class="activo">Centros</a>
     </nav>
+    <button class="btn-menu" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -242,6 +289,22 @@
 <footer class="footer">
   Municipio de La Matanza · 2026
 </footer>
+<script>
+  const btnMenu = document.getElementById('btn-menu');
+  const navPrincipal = document.getElementById('nav-principal');
 
+  btnMenu.addEventListener('click', () => {
+    const abierto = navPrincipal.classList.toggle('abierto');
+    btnMenu.classList.toggle('abierto', abierto);
+    btnMenu.setAttribute('aria-expanded', abierto);
+  });
+  navPrincipal.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navPrincipal.classList.remove('abierto');
+      btnMenu.classList.remove('abierto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
 </body>
 </html>

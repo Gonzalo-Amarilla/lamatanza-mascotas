@@ -33,6 +33,7 @@
   .header-content {
     max-width: 1100px; margin: 0 auto; padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
+    position: relative;
   }
   .brand {
     font-family: 'Bebas Neue', sans-serif;
@@ -44,6 +45,47 @@
   .nav a { color: var(--blanco); text-decoration: none; font-size: 14px; opacity: 0.85; }
   .nav a.activo { opacity: 1; font-weight: 600; }
   .nav a:hover { opacity: 1; }
+
+  .btn-menu {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 20;
+  }
+  .btn-menu span {
+    display: block;
+    width: 24px; height: 2px;
+    background: var(--blanco);
+    margin: 5px 0;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .btn-menu.abierto span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .btn-menu.abierto span:nth-child(2) { opacity: 0; }
+  .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 700px) {
+    .btn-menu { display: block; }
+
+    .nav {
+      position: absolute;
+      top: 100%; left: 0; right: 0;
+      background: var(--azul);
+      flex-direction: column;
+      gap: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav.abierto { max-height: 260px; }
+    .nav a {
+      padding: 14px 32px;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      opacity: 1;
+    }
+  }
 
   .main {
     flex: 1; max-width: 1100px; width: 100%;
@@ -89,15 +131,16 @@
 
   .contenido-grid {
     display: grid;
-    grid-template-columns: 1.4fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 20px;
+    align-items: start;
   }
 
   .mapa {
     background: var(--blanco);
     border: 1px solid var(--gris-borde);
     border-radius: 10px;
-    min-height: 380px;
+    min-height: 500px;
     position: relative;
     background-image:
       linear-gradient(rgba(36, 66, 125, 0.04) 1px, transparent 1px),
@@ -131,21 +174,34 @@
     background: var(--blanco);
     border: 1px solid var(--gris-borde);
     border-radius: 8px;
-    padding: 16px 18px;
+    padding: 12px;
     cursor: pointer;
     transition: border-color 0.2s, transform 0.2s;
     text-decoration: none; color: inherit;
-    display: block;
+    display: flex;
+    align-items: stretch;
+    gap: 14px;
   }
   .centro-card:hover { border-color: var(--celeste); transform: translateY(-2px); }
   .centro-card.activo { border-color: var(--azul); border-width: 2px; }
 
+  .centro-foto {
+    flex: 0 0 auto;
+    width: 84px; height: 84px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .centro-foto svg { width: 100%; height: 100%; display: block; }
+  .centro-card.cerrado-card .centro-foto { filter: grayscale(1); opacity: 0.7; }
+
+  .centro-texto { min-width: 0; padding: 2px 0; }
   .centro-nombre {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px; color: var(--azul); letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    font-size: 17px; color: var(--azul); letter-spacing: 0.5px;
+    margin-bottom: 3px;
   }
-  .centro-direccion { font-size: 13px; color: var(--gris-texto); margin-bottom: 6px; }
+  .centro-direccion { font-size: 12.5px; color: var(--gris-texto); margin-bottom: 6px; }
   .centro-estado {
     display: inline-block;
     font-size: 11px; padding: 3px 10px; border-radius: 999px;
@@ -153,6 +209,11 @@
     font-weight: 500;
   }
   .centro-estado.cerrado { background: #fef0ef; color: #d9534f; }
+
+  @media (max-width: 860px) {
+    .contenido-grid { grid-template-columns: 1fr; }
+    .mapa { min-height: 320px; }
+  }
 
   .footer {
     background: var(--azul); color: rgba(255,255,255,0.7);
@@ -165,11 +226,16 @@
 <header class="header">
   <div class="header-content">
     <a href="home.html" class="brand">LA MATANZA <span>MASCOTAS</span></a>
-    <nav class="nav">
+    <nav class="nav" id="nav-principal">
       <a href="home.html">Mis mascotas</a>
       <a href="calendario.html">Calendario</a>
       <a href="buscar-centro.html" class="activo">Centros</a>
     </nav>
+    <button class="btn-menu" id="btn-menu" aria-label="Abrir menú" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -196,27 +262,82 @@
 
     <div class="centros-lista">
       <a href="detalle-centro.html" class="centro-card activo">
-        <div class="centro-nombre">ZOONOSIS RAMOS MEJÍA</div>
-        <div class="centro-direccion">Av. Rivadavia 1234 · 0.4 km</div>
-        <span class="centro-estado">Abierto</span>
+        <div class="centro-foto">
+          <svg viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
+            <rect width="84" height="84" fill="#dceaf7"/>
+            <rect x="0" y="52" width="84" height="32" fill="#c3d8ee"/>
+            <rect x="14" y="30" width="56" height="24" rx="2" fill="#ffffff" stroke="#24427d" stroke-width="1.5"/>
+            <rect x="20" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="32" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="56" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="42" y="42" width="10" height="12" fill="#e08127"/>
+            <path d="M42 32h5v-5.5c1.2-.4 2-1.5 2-2.8a3 3 0 0 0-6 0c0 1.3.8 2.4 2 2.8V32h-3z" fill="#24427d"/>
+            <path d="M44.5 20.7a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2z" fill="#24427d"/>
+          </svg>
+        </div>
+        <div class="centro-texto">
+          <div class="centro-nombre">ZOONOSIS RAMOS MEJÍA</div>
+          <div class="centro-direccion">Av. Rivadavia 1234 · 0.4 km</div>
+          <span class="centro-estado">Abierto</span>
+        </div>
       </a>
 
       <a href="detalle-centro.html" class="centro-card">
-        <div class="centro-nombre">ZOONOSIS SAN JUSTO</div>
-        <div class="centro-direccion">Av. Brigadier Juan M. de Rosas 5678 · 1.8 km</div>
-        <span class="centro-estado">Abierto</span>
+        <div class="centro-foto">
+          <svg viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
+            <rect width="84" height="84" fill="#d9f0f2"/>
+            <rect x="0" y="54" width="84" height="30" fill="#c0e3e6"/>
+            <polygon points="42,22 68,38 16,38" fill="#13a1ba"/>
+            <rect x="20" y="38" width="44" height="20" fill="#ffffff" stroke="#13a1ba" stroke-width="1.5"/>
+            <rect x="26" y="42" width="6" height="9" fill="#9fd4dd"/>
+            <rect x="39" y="42" width="6" height="9" fill="#9fd4dd"/>
+            <rect x="52" y="42" width="6" height="9" fill="#9fd4dd"/>
+            <rect x="30" y="52" width="24" height="6" fill="#24427d"/>
+          </svg>
+        </div>
+        <div class="centro-texto">
+          <div class="centro-nombre">ZOONOSIS SAN JUSTO</div>
+          <div class="centro-direccion">Av. Brigadier Juan M. de Rosas 5678 · 1.8 km</div>
+          <span class="centro-estado">Abierto</span>
+        </div>
       </a>
 
       <a href="detalle-centro.html" class="centro-card">
-        <div class="centro-nombre">CAMPAÑA PLAZA SAN MARTÍN</div>
-        <div class="centro-direccion">Plaza San Martín · 2.3 km</div>
-        <span class="centro-estado">Abierto</span>
+        <div class="centro-foto">
+          <svg viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
+            <rect width="84" height="84" fill="#e7f3e2"/>
+            <rect x="0" y="60" width="84" height="24" fill="#cde6c3"/>
+            <circle cx="16" cy="58" r="10" fill="#8fc47c"/>
+            <circle cx="70" cy="62" r="8" fill="#8fc47c"/>
+            <polygon points="42,26 62,52 22,52" fill="#e08127"/>
+            <polygon points="42,26 50,52 34,52" fill="#c66f1f"/>
+            <rect x="30" y="52" width="24" height="10" fill="#ffffff" stroke="#e08127" stroke-width="1.2"/>
+          </svg>
+        </div>
+        <div class="centro-texto">
+          <div class="centro-nombre">CAMPAÑA PLAZA SAN MARTÍN</div>
+          <div class="centro-direccion">Plaza San Martín · 2.3 km</div>
+          <span class="centro-estado">Abierto</span>
+        </div>
       </a>
 
-      <a href="detalle-centro.html" class="centro-card">
-        <div class="centro-nombre">ZOONOSIS GREGORIO LAFERRERE</div>
-        <div class="centro-direccion">Av. Luro 9012 · 3.1 km</div>
-        <span class="centro-estado cerrado">Cerrado</span>
+      <a href="detalle-centro.html" class="centro-card cerrado-card">
+        <div class="centro-foto">
+          <svg viewBox="0 0 84 84" xmlns="http://www.w3.org/2000/svg">
+            <rect width="84" height="84" fill="#dceaf7"/>
+            <rect x="0" y="52" width="84" height="32" fill="#c3d8ee"/>
+            <rect x="14" y="30" width="56" height="24" rx="2" fill="#ffffff" stroke="#24427d" stroke-width="1.5"/>
+            <rect x="20" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="32" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="56" y="36" width="8" height="8" fill="#a9c4e6"/>
+            <rect x="42" y="42" width="10" height="12" fill="#9aa4b8"/>
+          </svg>
+        </div>
+        <div class="centro-texto">
+          <div class="centro-nombre">ZOONOSIS GREGORIO LAFERRERE</div>
+          <div class="centro-direccion">Av. Luro 9012 · 3.1 km</div>
+          <span class="centro-estado cerrado">Cerrado</span>
+        </div>
       </a>
     </div>
   </div>
@@ -225,6 +346,24 @@
 <footer class="footer">
   Municipio de La Matanza · 2026
 </footer>
+
+<script>
+  const btnMenu = document.getElementById('btn-menu');
+  const navPrincipal = document.getElementById('nav-principal');
+
+  btnMenu.addEventListener('click', () => {
+    const abierto = navPrincipal.classList.toggle('abierto');
+    btnMenu.classList.toggle('abierto', abierto);
+    btnMenu.setAttribute('aria-expanded', abierto);
+  });
+  navPrincipal.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navPrincipal.classList.remove('abierto');
+      btnMenu.classList.remove('abierto');
+      btnMenu.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
 
 </body>
 </html>
