@@ -195,7 +195,9 @@
   .btn-menu.abierto span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
   @media (max-width: 700px) {
-    .btn-menu { display: block; }
+    .btn-menu {
+      display: block;
+    }
 
     .nav {
       position: absolute;
@@ -212,6 +214,38 @@
       padding: 14px 32px;
       border-top: 1px solid rgba(255,255,255,0.12);
       opacity: 1;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contenido-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .mapa {
+      min-height: 350px;
+    }
+
+    .acciones {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 14px 18px;
+    }
+
+    .main {
+      padding: 20px 16px;
+    }
+
+    .info-centro {
+      padding: 20px;
     }
   }
 </style>

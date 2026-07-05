@@ -186,6 +186,43 @@
       opacity: 1;
     }
   }
+  @media (max-width: 768px) {
+    .main {
+      padding: 20px 16px;
+    }
+
+    .alerta-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px;
+    }
+    .btn-alerta {
+      width: 100%;
+      text-align: center;
+    }
+
+    .tabs {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .vacuna-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .estado-pill {
+      margin-left: 58px;
+    }
+  }
 </style>
 </head>
 <body>
